@@ -1,0 +1,16 @@
+name: architect
+description: A simple command-line application to analyze Dart/Flutter app's architecture.
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  analyzer: ^1.3.0
+  meta: ^1.3.0
+  yaml: ^3.1.0
+  args: ^2.0.0
+  path: ^1.8.0
+
+dev_dependencies:
+  pedantic: ^1.11.0
+
