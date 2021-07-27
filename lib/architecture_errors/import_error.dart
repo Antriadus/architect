@@ -1,5 +1,5 @@
-import 'package:architect/models/architecture_errors/error.dart';
-import 'package:architect/models/configuration/layer.dart';
+import 'package:architect/architecture_errors/architecture_error.dart';
+import 'package:architect/configuration/layer.dart';
 
 class ImportError extends ArchitectureError {
   final Layer importedLayer;
@@ -13,7 +13,7 @@ class ImportError extends ArchitectureError {
   @override
   String getErrorMessage() {
     //TODO add more info
-    return '- import from ${importedLayer.displayName}  $importedClassPath';
+    return 'import from ${importedLayer.displayName}  $importedClassPath';
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:architect/models/architecture_errors/error.dart';
-import 'package:architect/models/configuration/layer.dart';
+import 'package:architect/architecture_errors/architecture_error.dart';
+import 'package:architect/configuration/layer.dart';
 
 class ClassNameError extends ArchitectureError {
   final ClassElement element;
@@ -20,7 +20,7 @@ class ClassNameError extends ArchitectureError {
   }
 
   String _printMatch(RegExpMatch match) {
-    return '- wrong class name from: ${match.start} to: ${match.end} wrong phrase: "${element.displayName.substring(match.start, match.end)}"';
+    return 'wrong class name from: ${match.start} to: ${match.end} wrong phrase: "${element.displayName.substring(match.start, match.end)}"';
   }
 
   @override
@@ -33,9 +33,3 @@ class ClassNameError extends ArchitectureError {
   @override
   int get hashCode => element.hashCode ^ regex.hashCode ^ layer.hashCode;
 }
-
-class AAAA {
-  static int A = 1;
-}
-
-class BBBB with AAAA {}

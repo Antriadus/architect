@@ -1,7 +1,4 @@
-import 'package:architect/models/configuration/layer.dart';
-
-const _layerKey = 'layer';
-const _cannotImportFromKey = 'banned';
+import 'package:architect/configuration/layer.dart';
 
 class BannedImports {
   final Layer layer;
@@ -14,8 +11,8 @@ class BannedImports {
 
   factory BannedImports.fromMap(Map<dynamic, dynamic> map) {
     return BannedImports(
-      Layer.fromMap(map[_layerKey]),
-      List<Layer>.from(map[_cannotImportFromKey]?.map((x) => Layer.fromMap(x))),
+      Layer.fromMap(map['layer']),
+      List<Layer>.from(map['banned']?.map((x) => Layer.fromMap(x))),
     );
   }
 

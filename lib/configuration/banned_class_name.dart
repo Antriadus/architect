@@ -1,8 +1,5 @@
-import 'package:architect/models/configuration/layer.dart';
-import 'package:architect/models/configuration/regex.dart';
-
-const _layerKey = 'layer';
-const _bannedClassNames = 'banned';
+import 'package:architect/configuration/layer.dart';
+import 'package:architect/configuration/regex.dart';
 
 class BannedClassName {
   final Layer layer;
@@ -15,8 +12,8 @@ class BannedClassName {
 
   factory BannedClassName.fromMap(Map<dynamic, dynamic> map) {
     return BannedClassName(
-      Layer.fromMap(map[_layerKey]),
-      List<RegExp>.from(map[_bannedClassNames]?.map((x) => Regex.fromMap(x))),
+      Layer.fromMap(map['layer']),
+      List<RegExp>.from(map['banned']?.map((x) => Regex.fromMap(x))),
     );
   }
 

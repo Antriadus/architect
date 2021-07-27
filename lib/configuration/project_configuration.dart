@@ -1,12 +1,7 @@
-import 'package:architect/models/configuration/layer.dart';
-import 'package:architect/models/configuration/banned_class_name.dart';
-import 'package:architect/models/configuration/banned_imports.dart';
-import 'package:architect/models/configuration/regex.dart';
-
-const _layersKey = 'layers';
-const _excludePathsKey = 'excludePaths';
-const _layerBannedImportsKey = 'bannedImports';
-const _layerBannedClassNamesKey = 'bannedClassNames';
+import 'package:architect/configuration/layer.dart';
+import 'package:architect/configuration/banned_class_name.dart';
+import 'package:architect/configuration/banned_imports.dart';
+import 'package:architect/configuration/regex.dart';
 
 class ProjectConfiguration {
   final List<Layer> layers;
@@ -23,16 +18,16 @@ class ProjectConfiguration {
 
   factory ProjectConfiguration.fromMap(Map<dynamic, dynamic> map) {
     final layers = List<Layer>.from(
-      map[_layersKey]?.map((x) => Layer.fromMap(x)),
+      map['layers']?.map((x) => Layer.fromMap(x)),
     );
     final excludePaths = List<RegExp>.from(
-      (map[_excludePathsKey]?.map((x) => Regex.fromMap(x)) ?? []),
+      (map['excludePaths']?.map((x) => Regex.fromMap(x)) ?? []),
     );
     final bannedImportsList = List<BannedImports>.from(
-      map[_layerBannedImportsKey]?.map((x) => BannedImports.fromMap(x)),
+      map['bannedImports']?.map((x) => BannedImports.fromMap(x)),
     );
     final bannedClassNamesList = List<BannedClassName>.from(
-      map[_layerBannedClassNamesKey]?.map((x) => BannedClassName.fromMap(x)),
+      map['bannedClassNames']?.map((x) => BannedClassName.fromMap(x)),
     );
 
     final bannedImportsMap = <Layer, Set<Layer>>{};
@@ -50,15 +45,6 @@ class ProjectConfiguration {
       excludePaths,
       bannedImportsMap,
       bannedClassNamesMap,
-    );
-  }
-
-  factory ProjectConfiguration.empty() {
-    return ProjectConfiguration(
-      [],
-      [],
-      <Layer, Set<Layer>>{},
-      <Layer, Set<RegExp>>{},
     );
   }
 }

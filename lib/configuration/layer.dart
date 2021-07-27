@@ -1,7 +1,4 @@
-import 'package:architect/models/configuration/regex.dart';
-
-const _nameKey = 'name';
-const _regexKey = 'pathRegex';
+import 'package:architect/configuration/regex.dart';
 
 class Layer {
   final String displayName;
@@ -14,8 +11,8 @@ class Layer {
 
   factory Layer.fromMap(Map<dynamic, dynamic> map) {
     return Layer(
-      map[_nameKey],
-      Regex.fromMap(map[_regexKey]),
+      map['name'],
+      Regex.fromMap(map['pathRegex']),
     );
   }
 
