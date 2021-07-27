@@ -1,0 +1,75 @@
+layers:
+  - &infrastructureLayer
+    name: "Infrastructure"
+    pathRegex:
+      source: "^infrastructure"
+  - &domainLayer
+    name: "Domain"
+    pathRegex: 
+      source: "^domain"
+  - &presentationLayer
+    name: "Presentation"
+    pathRegex: 
+      source: "^presentation"
+  - &useCaseLayer
+    name: "Domain/UseCases"
+    pathRegex:
+      source: "^domain/use_cases"
+  - &utils
+    name: "Utils"
+    pathRegex:
+      source: "^utils"
+  - &infrastructureLayer
+    name: "Infrastructure"
+    pathRegex:
+      source: "^infrastructure"
+
+bannedImports:
+  - layer: *domainLayer
+    banned:
+      - *presentationLayer
+      - *useCaseLayer
+      - *infrastructureLayer
+  - layer: *presentationLayer
+    banned:
+      - *infrastructureLayer
+  - layer: *infrastructureLayer
+    banned:
+      - *useCaseLayer
+      - *presentationLayer
+  - layer: *useCaseLayer
+    banned:
+      - *presentationLayer
+      - *infrastructureLayer
+
+classNames:
+  - &dtoSuffixClassName
+    source: "DTO$"
+    caseSensitive: false
+  - &dtoClassName
+    source: "DTO"
+    caseSensitive: false
+  - &widgetClassName
+    source: "widget"
+    caseSensitive: false
+  - &entityClassName
+    source: "entity$"
+    caseSensitive: false
+
+bannedClassNames:
+  - layer: *domainLayer
+    banned: 
+      - *dtoSuffixClassName
+      - *widgetClassName
+      - *entityClassName
+  - layer: *presentationLayer
+    banned:
+      - *dtoClassName
+      - *entityClassName
+  - layer: *infrastructureLayer
+    banned:
+      - *widgetClassName
+     
+excludePaths:
+
+
