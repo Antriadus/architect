@@ -1,12 +1,16 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:architect/analyzer/base_analyzer.dart';
-import 'package:architect/architecture_errors/class_name_error.dart';
-import 'package:architect/architecture_errors/import_error.dart';
+import 'package:architect/architecture_errors/architecture_error.dart';
+import 'package:architect/architecture_errors_analyzers/architecture_errors_analyzer.dart';
 import 'package:architect/project_class.dart';
 import 'package:architect/configuration/project_configuration.dart';
 import 'package:architect/configuration/layer.dart';
 
 class SimpleAnalyzer implements BaseAnalyzer {
+  final List<ArchitectureErrorsAnalyzer> analyzers;
+
+  SimpleAnalyzer(this.analyzers);
+
   int _compareClasses(ProjectClass a, ProjectClass b) => a.classElement.displayName.compareTo(b.classElement.displayName);
 
   @override
@@ -17,16 +21,15 @@ class SimpleAnalyzer implements BaseAnalyzer {
       final element = classElements[i];
       final elementPath = _getElementPath(element);
       final elementLayer = _findPathLayer(elementPath, configuration.layers);
-      final classNameErrors = _getClassNameErrors(element, elementLayer, configuration);
-      final importErrors = _getImportErrors(configuration, element, elementLayer);
+      final errors = <ArchitectureError>{};
+      for (var analyzer in analyzers) {
+        errors.addAll(analyzer.findErrors(element, elementLayer, configuration));
+      }
       final currentClass = ProjectClass(
         classElement: element,
         filePath: elementPath,
         layer: elementLayer,
-        errors: {
-          ...classNameErrors,
-          ...importErrors,
-        },
+        errors: errors,
       );
       errorsCount += currentClass.errors.length;
 
@@ -48,58 +51,5 @@ class SimpleAnalyzer implements BaseAnalyzer {
       }
     }
     return null;
-  }
-
-  Set<ClassNameError> _getClassNameErrors(
-    ClassElement element,
-    Layer? layer,
-    ProjectConfiguration configuration,
-  ) {
-    if (layer == null) {
-      return {};
-    }
-    final result = <ClassNameError>{};
-    final layerBannedClassNames = configuration.bannedClassNames[layer] ?? <RegExp>{};
-    for (final bannedClassName in layerBannedClassNames) {
-      if (bannedClassName.hasMatch(element.displayName)) {
-        result.add(ClassNameError(
-          element: element,
-          layer: layer,
-          regex: bannedClassName,
-        ));
-      }
-    }
-    return result;
-  }
-
-  Set<ImportError> _getImportErrors(ProjectConfiguration configuration, ClassElement element, Layer? layer) {
-    if (layer == null) {
-      return {};
-    }
-    final result = <ImportError>{};
-    final imports = element.library.imports;
-    for (final import in imports) {
-      if (import.uri != null) {
-        final importPath = (import.importedLibrary?.identifier ?? import.uri)!.split('/').skip(1).join('/');
-        final importLayer = _findPathLayer(
-          importPath,
-          configuration.layers,
-        );
-
-        if (importLayer != null) {
-          final bannedConnections = configuration.bannedImports[layer] ?? <Layer>{};
-          if (bannedConnections.contains(importLayer)) {
-            result.add(
-              ImportError(
-                importedClassPath: importPath,
-                importedLayer: importLayer,
-              ),
-            );
-          }
-        }
-      }
-    }
-
-    return result;
   }
 }

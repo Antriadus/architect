@@ -1,5 +1,7 @@
 import 'package:architect/analyzer/base_analyzer.dart';
 import 'package:architect/analyzer/simple_analyzer.dart';
+import 'package:architect/architecture_errors_analyzers/class_name_analyzer.dart';
+import 'package:architect/architecture_errors_analyzers/imports_analyzer.dart';
 import 'package:architect/class_parser/analyzer_class_parser.dart';
 import 'package:architect/configuration_reader/configuration_reader.dart';
 import 'package:architect/console_arguments.dart';
@@ -29,7 +31,10 @@ Future<void> main(List<String> arguments) async {
     exit(-1);
   }
 
-  final BaseAnalyzer analyzer = SimpleAnalyzer();
+  final BaseAnalyzer analyzer = SimpleAnalyzer([
+    ClassNameAnalyzer(),
+    ImportsAnalyzer(),
+  ]);
   final AnalyzerClassParser classParser = AnalyzerClassParser(printer, args.printProjectClasses);
   final ProjectConfiguration configuration = await configurationReader.readConfiguration(args.inputPath, args.architectureFileName);
 
