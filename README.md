@@ -1,8 +1,17 @@
-To run analyzer please run 'dart run' from terminal
-To print architecture from architecture.yaml please run "dart run bin/analyzer_tool.dart run -a"
-To print all parsed files please run "dart run bin/analyzer_tool.dart run -f"
-To print all founded classes please run "dart run bin/analyzer_tool.dart run -c"
-To save all classes errors to file please run "dart run bin/analyzer_tool.dart --classes-errors-output=PATH-TO-FILE"
-To save all founded classes to file please run "dart run bin/analyzer_tool.dart --founded-classes-output=PATH-TO-FILE"
-To specify input project please run "dart run bin/analyzer_tool.dart --input-path=PATH-TO-FILE". By default --input-path=.
-You can mix flags like "--classes-errors-output=PATH -afc" etc.
+# Architect
+Dart tool to help you analyze Dart/Flutter app's architecture. Architect allows you to create your own architecture configuration. Tool designed to integrate with CI / CD tools, but can be used as a CLI.
+## Installation
+**Install from pub:**\
+`pub global activate architect`
+
+**Install from local copy:**\
+From inside of local copy directory run command:\
+`pub global activate --source path .`
+
+## Usage
+
+From inside of Dart/Flutter project you want to analyze, run command:\
+`pub global run architect`
+
+To see help and usages run command:\
+`pub global run architect -h`
