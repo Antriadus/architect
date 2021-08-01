@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:architect/class_parser/base_class_parser.dart';
@@ -37,7 +38,7 @@ class AnalyzerClassParser implements BaseClassParser {
         continue;
       }
 
-      final unitResult = await context.currentSession.getResolvedUnit(filePath);
+      final unitResult = await context.currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
       if (!unitResult.isPart) {
         unitResult.libraryElement.accept(collector);
       }
