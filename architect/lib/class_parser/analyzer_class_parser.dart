@@ -55,7 +55,7 @@ class AnalyzerClassParser implements BaseClassParser {
   AnalysisContextCollectionImpl getAnalysisContextCollection(String pubspecPath, List<String> dartFilesPaths) {
     return AnalysisContextCollectionImpl(
       includedPaths: [
-        path.absolute(pubspecPath),
+        _normalizeAbsolutePath(pubspecPath),
         _makePackageSubPath(pubspecPath, 'lib'),
         _makePackageSubPath(pubspecPath, 'lib', 'src'),
         ...dartFilesPaths,
