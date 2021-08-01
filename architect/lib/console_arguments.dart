@@ -73,11 +73,11 @@ final argParser = ArgParser()
     _inputPathKey,
     help: 'Path to directory with pubspec.yaml and lib directory',
     valueHelp: 'DIRECTORY',
-    defaultsTo: '/Users/kamilmrowiec/Documents/Repos/architect/example',
+    defaultsTo: '.',
   )
   ..addOption(
     _architectureFileNameKey,
     help: "Architecure configuration yaml file's name",
     valueHelp: 'FILE',
-    defaultsTo: 'architecture_no_errors.yaml',
+    defaultsTo: 'architecture.yaml',
   );
