@@ -2,7 +2,9 @@
 
 # Files and directories created by pub
 .dart_tool/
+architect/.dart_tool/
 .packages
+architect/.packages
 build/
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
