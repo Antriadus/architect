@@ -1,3 +1,5 @@
+## 0.1.3
+- Repaired printing
 ## 0.1.2
 - Repaired console arguments
 ## 0.1.1

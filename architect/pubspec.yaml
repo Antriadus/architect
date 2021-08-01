@@ -1,6 +1,6 @@
 name: architect
 description: A simple command-line application to analyze Dart/Flutter app's architecture.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/Antriadus/architect
 environment:
   sdk: ">=2.12.0 <3.0.0"
