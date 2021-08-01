@@ -20,7 +20,9 @@ class BannedImports {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is BannedImports && other.layer == layer && other.cannotImportFrom == cannotImportFrom;
+    return other is BannedImports &&
+        other.layer == layer &&
+        other.cannotImportFrom == cannotImportFrom;
   }
 
   @override

@@ -6,7 +6,8 @@ import 'architecture_errors_analyzer.dart';
 
 class ImportsAnalyzer implements ArchitectureErrorsAnalyzer<ImportError> {
   @override
-  Set<ImportError> findErrors(ClassElement element, Layer? layer, ProjectConfiguration configuration) {
+  Set<ImportError> findErrors(
+      ClassElement element, Layer? layer, ProjectConfiguration configuration) {
     if (layer == null) {
       return {};
     }
@@ -14,14 +15,18 @@ class ImportsAnalyzer implements ArchitectureErrorsAnalyzer<ImportError> {
     final imports = element.library.imports;
     for (final import in imports) {
       if (import.uri != null) {
-        final importPath = (import.importedLibrary?.identifier ?? import.uri)!.split('/').skip(1).join('/');
+        final importPath = (import.importedLibrary?.identifier ?? import.uri)!
+            .split('/')
+            .skip(1)
+            .join('/');
         final importLayer = _findPathLayer(
           importPath,
           configuration.layers,
         );
 
         if (importLayer != null) {
-          final bannedConnections = configuration.bannedImports[layer] ?? <Layer>{};
+          final bannedConnections =
+              configuration.bannedImports[layer] ?? <Layer>{};
           if (bannedConnections.contains(importLayer)) {
             result.add(
               ImportError(

@@ -30,7 +30,10 @@ class ProjectClass {
 
   @override
   int get hashCode {
-    return classElement.hashCode ^ filePath.hashCode ^ layer.hashCode ^ errors.hashCode;
+    return classElement.hashCode ^
+        filePath.hashCode ^
+        layer.hashCode ^
+        errors.hashCode;
   }
 
   ProjectClass copyWith({

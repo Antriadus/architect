@@ -6,12 +6,14 @@ import 'architecture_errors_analyzer.dart';
 
 class ClassNameAnalyzer implements ArchitectureErrorsAnalyzer<ClassNameError> {
   @override
-  Set<ClassNameError> findErrors(ClassElement element, Layer? layer, ProjectConfiguration configuration) {
+  Set<ClassNameError> findErrors(
+      ClassElement element, Layer? layer, ProjectConfiguration configuration) {
     if (layer == null) {
       return {};
     }
     final result = <ClassNameError>{};
-    final layerBannedClassNames = configuration.bannedClassNames[layer] ?? <RegExp>{};
+    final layerBannedClassNames =
+        configuration.bannedClassNames[layer] ?? <RegExp>{};
     for (final bannedClassName in layerBannedClassNames) {
       if (bannedClassName.hasMatch(element.displayName)) {
         result.add(ClassNameError(

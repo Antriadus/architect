@@ -11,10 +11,12 @@ class SimpleAnalyzer implements BaseAnalyzer {
 
   SimpleAnalyzer(this.analyzers);
 
-  int _compareClasses(ProjectClass a, ProjectClass b) => a.classElement.displayName.compareTo(b.classElement.displayName);
+  int _compareClasses(ProjectClass a, ProjectClass b) =>
+      a.classElement.displayName.compareTo(b.classElement.displayName);
 
   @override
-  Future<List<ProjectClass>> analyze(List<ClassElement> classElements, ProjectConfiguration configuration) async {
+  Future<List<ProjectClass>> analyze(List<ClassElement> classElements,
+      ProjectConfiguration configuration) async {
     final projectClasses = <ProjectClass>[];
     var errorsCount = 0;
     for (var i = 0; i < classElements.length; i++) {
@@ -23,7 +25,8 @@ class SimpleAnalyzer implements BaseAnalyzer {
       final elementLayer = _findPathLayer(elementPath, configuration.layers);
       final errors = <ArchitectureError>{};
       for (var analyzer in analyzers) {
-        errors.addAll(analyzer.findErrors(element, elementLayer, configuration));
+        errors
+            .addAll(analyzer.findErrors(element, elementLayer, configuration));
       }
       final currentClass = ProjectClass(
         classElement: element,

@@ -21,7 +21,9 @@ class BannedClassName {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is BannedClassName && other.layer == layer && other.bannedClassNames == bannedClassNames;
+    return other is BannedClassName &&
+        other.layer == layer &&
+        other.bannedClassNames == bannedClassNames;
   }
 
   @override

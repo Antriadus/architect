@@ -20,7 +20,9 @@ class ImportError extends ArchitectureError {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ImportError && other.importedLayer == importedLayer && other.importedClassPath == importedClassPath;
+    return other is ImportError &&
+        other.importedLayer == importedLayer &&
+        other.importedClassPath == importedClassPath;
   }
 
   @override

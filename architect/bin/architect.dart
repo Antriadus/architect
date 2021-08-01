@@ -26,8 +26,10 @@ Future<void> main(List<String> arguments) async {
     exit(-1);
   }
 
-  if (!await configurationReader.architectureFileExist(args.inputPath, args.architectureFileName)) {
-    printer.printInfo('${args.architectureFileName} file not found at ${args.inputPath}');
+  if (!await configurationReader.architectureFileExist(
+      args.inputPath, args.architectureFileName)) {
+    printer.printInfo(
+        '${args.architectureFileName} file not found at ${args.inputPath}');
     exit(-1);
   }
 
@@ -35,18 +37,23 @@ Future<void> main(List<String> arguments) async {
     ClassNameAnalyzer(),
     ImportsAnalyzer(),
   ]);
-  final AnalyzerClassParser classParser = AnalyzerClassParser(printer, args.printProjectClasses);
-  final ProjectConfiguration configuration = await configurationReader.readConfiguration(args.inputPath, args.architectureFileName);
+  final AnalyzerClassParser classParser =
+      AnalyzerClassParser(printer, args.printProjectClasses);
+  final ProjectConfiguration configuration = await configurationReader
+      .readConfiguration(args.inputPath, args.architectureFileName);
 
-  final classesElements = await classParser.parseClasses(configuration, args.inputPath);
+  final classesElements =
+      await classParser.parseClasses(configuration, args.inputPath);
   final projectClasses = await analyzer.analyze(classesElements, configuration);
-  final classesWithErrors = projectClasses.where((c) => c.errors.isNotEmpty).toList();
+  final classesWithErrors =
+      projectClasses.where((c) => c.errors.isNotEmpty).toList();
 
   if (args.printProjectClasses) {
     if (args.printClassErrors) {
       printer.printClasses(projectClasses);
     } else {
-      final classesWithoutClearedErrors = projectClasses.map((e) => e.copyWith(errors: {})).toList();
+      final classesWithoutClearedErrors =
+          projectClasses.map((e) => e.copyWith(errors: {})).toList();
       printer.printClasses(classesWithoutClearedErrors);
     }
   } else if (args.printClassErrors) {

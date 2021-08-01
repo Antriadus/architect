@@ -20,7 +20,9 @@ class Layer {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Layer && other.displayName == displayName && other.pathRegex == pathRegex;
+    return other is Layer &&
+        other.displayName == displayName &&
+        other.pathRegex == pathRegex;
   }
 
   @override

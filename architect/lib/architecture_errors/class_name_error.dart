@@ -27,7 +27,10 @@ class ClassNameError extends ArchitectureError {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ClassNameError && other.element == element && other.regex == regex && other.layer == layer;
+    return other is ClassNameError &&
+        other.element == element &&
+        other.regex == regex &&
+        other.layer == layer;
   }
 
   @override
