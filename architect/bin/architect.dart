@@ -35,7 +35,7 @@ Future<void> main(List<String> arguments) async {
     ClassNameAnalyzer(),
     ImportsAnalyzer(),
   ]);
-  final AnalyzerClassParser classParser = AnalyzerClassParser(printer, args.printProjectClasses);
+  final AnalyzerClassParser classParser = AnalyzerClassParser(printer, args.printParsedFiles);
   final ProjectConfiguration configuration = await configurationReader.readConfiguration(args.inputPath, args.architectureFileName);
 
   final classesElements = await classParser.parseClasses(configuration, args.inputPath);

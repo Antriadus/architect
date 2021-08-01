@@ -7,14 +7,14 @@ class ConsolePrinter implements BasePrinter {
 
   @override
   void printClasses(List<ProjectClass> classes) {
-    classes.map(_stringifyProjectClass).join('\n');
+    print(classes.map(_stringifyProjectClass).join('\n'));
   }
 
   String _stringifyProjectClass(ProjectClass projectClass) {
     return [
       '${projectClass.classElement.displayName}',
       '\n\tlayer: ${projectClass.layer?.displayName ?? "unknown"}',
-      '\n\tpath: $projectClass.filePath\n',
+      '\n\tpath: ${projectClass.filePath}\n',
       if (projectClass.errors.isNotEmpty) ...[
         '\terrors:',
         ...projectClass.errors.map(

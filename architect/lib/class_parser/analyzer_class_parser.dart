@@ -21,10 +21,9 @@ class AnalyzerClassParser implements BaseClassParser {
     ProjectConfiguration configuration,
     String projectPath,
   ) async {
-    printer.printInfo('Parsing start with path $projectPath');
+    printer.printInfo('Parsing starts with path $projectPath');
     final dartFilesPaths = _getDartFilesPaths(projectPath, configuration);
-    final contextCollection =
-        getAnalysisContextCollection(projectPath, dartFilesPaths);
+    final contextCollection = getAnalysisContextCollection(projectPath, dartFilesPaths);
     final collector = _ClassElementCollector();
 
     for (var i = 0; i < dartFilesPaths.length; i++) {
@@ -33,15 +32,13 @@ class AnalyzerClassParser implements BaseClassParser {
       try {
         context = contextCollection.contextFor(filePath);
       } on StateError catch (_) {
-        context = AnalysisContextCollectionImpl(includedPaths: [filePath])
-            .contextFor(filePath);
+        context = AnalysisContextCollectionImpl(includedPaths: [filePath]).contextFor(filePath);
       } catch (e) {
         //TODO logging files that throws exception and save to file
         continue;
       }
 
-      final unitResult = await context.currentSession.getResolvedUnit2(filePath)
-          as ResolvedUnitResult;
+      final unitResult = await context.currentSession.getResolvedUnit2(filePath) as ResolvedUnitResult;
       if (!unitResult.isPart) {
         unitResult.libraryElement.accept(collector);
       }
@@ -51,14 +48,12 @@ class AnalyzerClassParser implements BaseClassParser {
       }
     }
     final classes = collector.classElements;
-    print(
-        'Parsing ${dartFilesPaths.length} files done - founded ${classes.length} class');
+    print('Parsing ${dartFilesPaths.length} files done - founded ${classes.length} class');
 
     return classes;
   }
 
-  AnalysisContextCollectionImpl getAnalysisContextCollection(
-      String pubspecPath, List<String> dartFilesPaths) {
+  AnalysisContextCollectionImpl getAnalysisContextCollection(String pubspecPath, List<String> dartFilesPaths) {
     return AnalysisContextCollectionImpl(
       includedPaths: [
         _normalizeAbsolutePath(pubspecPath),
@@ -69,19 +64,16 @@ class AnalyzerClassParser implements BaseClassParser {
     );
   }
 
-  List<String> _getDartFilesPaths(
-      String inputPath, ProjectConfiguration configuration) {
+  List<String> _getDartFilesPaths(String inputPath, ProjectConfiguration configuration) {
     return Directory(inputPath)
         .listSync(recursive: true)
         .where((file) => path.extension(file.path) == '.dart')
-        .where((element) => !configuration.excludePaths
-            .any((exclude) => exclude.hasMatch(element.path)))
+        .where((element) => !configuration.excludePaths.any((exclude) => exclude.hasMatch(element.path)))
         .map((file) => _normalizeAbsolutePath(file.path))
         .toList();
   }
 
-  String _makePackageSubPath(String pubspecPath, String part0,
-      [String? part1]) {
+  String _makePackageSubPath(String pubspecPath, String part0, [String? part1]) {
     return _normalizeAbsolutePath(
       path.join(
         pubspecPath,
